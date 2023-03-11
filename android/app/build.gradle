@@ -191,13 +191,16 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+     
+     //add for videor frecoder
+     implementation project(':react-native-audio-recorder-player')
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
     def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true";
     def frescoVersion = rootProject.ext.frescoVersion
 
-    // If your app supports Android versions before Ice Cream Sandwich (API level 14)
+    //If your app supports Android versions before Ice Cream Sandwich (API level 14)
     if (isGifEnabled || isWebpEnabled) {
         implementation("com.facebook.fresco:fresco:${frescoVersion}")
         implementation("com.facebook.fresco:imagepipeline-okhttp3:${frescoVersion}")

@@ -1,5 +1,6 @@
 package com.chatplus;
 
+//import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage ;
 import android.app.Application;
 import android.content.res.Configuration;
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import expo.modules.ReactNativeHostWrapper;
 
 import java.util.List;
 
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -30,6 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
       protected List<ReactPackage> getPackages() {
         @SuppressWarnings("UnnecessaryLocalVariable")
         List<ReactPackage> packages = new PackageList(this).getPackages();
+        //  packages.add(new RNAudioRecorderPlayerPackage());
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
         return packages;
@@ -73,4 +76,9 @@ public class MainApplication extends Application implements ReactApplication {
     super.onConfigurationChanged(newConfig);
     ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
+
+  @Override    
+  public boolean canOverrideExistingModule(){        
+    return true;    
+  }   
 }
