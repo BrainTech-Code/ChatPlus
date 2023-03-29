@@ -1,45 +1,77 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ActivityIndicator, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import { Text, View, TextInput, Button, FlatList, StyleSheet } from 'react-native';
+import { Text, View, TextInput,Button,StatusBar, FlatList, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import EmptyElement from '../Components/EmptyElement';
 import AppColor from '../constants/colors';
-import AudioRecorderPlayer from 'react-native-audio-recorder-player';
+import * as Progress from 'react-native-progress';
+import {AsyncStorage} from 'react-native';
+import { Audio } from 'expo-av';
 import { useState } from 'react';
 import { Alert } from 'react-native';
-
+import Share from 'react-native-share';
+import AppConstant from '../constants/constants';
 
 const { Configuration, OpenAIApi } = require("openai");
-const OPENAI_API_KEY="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";
-     //"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" ;
-const WISPER_END_POND="https://api.openai.com/v1/audio/transcriptions";
+const OPENAI_API_KEY=process.env.REACT_APP_OPENAI_API_KEY;
+const WISPER_END_POND=process.env.REACT_APP_WISPER_END_POND;
 const GPT_END_POND="https://api.openai.com/v1/chat/completions";
 
 const ResponseBLoc=({item}) => {
-    
+    //shared item
+const options ={
+    message:item.content,
+    title:"partage par chatPlus",
+    url:null,
+    email:null,
+    recipient:null
+    }    
+const handleShared =()=>{
+  Share.open(options)
+     .then((res) => {
+        
+     }).catch((err) => {
+          console.log(err);
+      });
+ }
     
     return(
         <View style={[styles.chatBubble]}>          
             {item.role === 'user'?<Icon name="ios-person-circle-outline" size={30} color="#4F8EF7"/>:<Image source={require("../assets/botmin.jpg")} style={{width:35,height:35}}/>}          
-            <Text style={styles.chatText}>{item.content}</Text>
+            <TouchableOpacity onLongPress={handleShared} ><Text style={styles.chatText}>{item.content}</Text></TouchableOpacity>
         </View>
         ) ;
 }
 const Home = () => {
 
 const [inputText, setInputText] = React.useState('');
-const System={role: "system",  content: "Bonjour ChatGpt!"};
+const System={role: "system",  content: "Bonjour ! Comment vous aidez ?"};
 const [chatHistory, setChatHistory] = React.useState([System,]);
+const [tHistory, settHistory] = useState([]);
+
 const [file, setFile] = useState(null);
 const [isSending, setIsSending] = useState(null);
+
+const [limite, setLimite] = useState(null);
+
+const [recording, setRecording] = React.useState();
+                                    
+   useEffect(() => {
+    if (chatHistory.length>=AppConstant.Limite_2) {
+      storeData() ;
+      setLimite(true);
+       }   
+       //console.log("heelo",chatHistory.length);                      
+      }, [chatHistory]) ;
+ 
+                                      
 
 
 const formData = new FormData();
     formData.append("file", file);
     formData.append("model", "whisper-1");
-
-//wisper endpoint fetching 
+   //wisper endpoint fetching 
 const wisper_fetch =fetch(WISPER_END_POND, {
   headers:{
     "Authorization": "Bearer "+OPENAI_API_KEY,
@@ -53,17 +85,8 @@ const wisper_fetch =fetch(WISPER_END_POND, {
     return result;
   })
   .catch((error) => {
-    Alert.alert('Puff! quelque chose ne va pas ', 'Signaler le probleme et revener plus tard', [
-      
-      {
-        text: 'Cancel',
-        onPress: () => {},
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => {}},
-    ],
-    {cancelable: true})
-    
+   
+
    // console.error("Error:", error);
   });
 
@@ -88,13 +111,13 @@ const processinput = function(textin){
       "content-type": "application/json",
       Authorization: "Bearer " + OPENAI_API_KEY,
     }
-   }).then((response) => {    
-       
+   }).then((response) => {        
+      //console.log(response);  
         if (response.ok) {
           response.json().then((json) => {
           console.log(json);  
 
-          console.log(json.choices[0].message.content) 
+        //  console.log(json.choices[0].message.content) 
           let response={role: "assistant", content:json.choices[0].message.content};
           setChatHistory([...chatHistory, newChat, response ])  ;
           setInputText('');
@@ -117,35 +140,87 @@ const processinput = function(textin){
   } );
  }
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  const res = await uploadFile(file);
- 
-};
 
+ //sound handlering
+
+ const playSound=async()=>{
+          const { sound } = await Audio.Sound.createAsync(require('t'));
+          setSound(sound);
+          await sound.playAsync();
+      }
+const startRecording=async()=> {
+  console.log("recording statr");
+        try {        
+          await Audio.requestPermissionsAsync();
+
+          await Audio.setAudioModeAsync({
+            allowsRecordingIOS: true,
+            playsInSilentModeIOS: true,
+          });
+           
+          const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY);
+          setRecording(recording);
+          
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+ 
+const stopRecording=async()=>{
+       
+        await recording.stopAndUnloadAsync();
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+        });
+        const uri = recording.getURI();
+        setaudioFile(uri)
+        console.log("stoped",uri);
+     }
+
+
+let action_View ;
+ if (inputText==="" || inputText==null) {
+  action_View=<TouchableOpacity onPressOut={()=>{if(recording){stopRecording()} }} onPressIn={()=>{startRecording() }}><Icon name="mic-circle" size={30} color="#4F8EF7" /></TouchableOpacity>;
+ }else {
+  action_View=isSending?<ActivityIndicator />:<TouchableOpacity  onPress={()=> {if(inputText!==" "){processinput(inputText)} }}><Icon name="send-outline" size={30} color="#4F8EF7" /></TouchableOpacity>;
+   }
+const audioView=(<View style={styles.recordContainer} >   
+                      <Text>{}</Text>
+                    <TouchableOpacity onPressOut={{}} onPressI={playSound}><Progress.Bar progress={0.3} width={200} color="#2196F3"/></TouchableOpacity>
+                </View>);
+const limiteView=(
+   <View style={styles.limitList} >
+     <Text style={styles.limitText} >Oops!il parait que vous avez épuisez votre stock  </Text>
+     <TouchableOpacity ><Text style={styles.premuim}>Passer au Premuim</Text></TouchableOpacity>
+   </View>
+  );                
 return (
 <View style={styles.container}>
-
+<StatusBar
+        animated={true}
+        backgroundColor="#61dafb"
+      
+      />
 <FlatList
 data={chatHistory}
 keyExtractor={(item, index) => index.toString()}
 contentContainerStyle={styles.chatContainer}
-
-ListEmptyComponent={<EmptyElement /> }
+ListEmptyComponent={<EmptyElement/>}
 renderItem={({ item }) => <ResponseBLoc item={item}/>}/>
-
-<View style={styles.inputContainer}>
+  {audioFile?audioView:null}
+ 
+{limite?limiteView:<View style={styles.inputContainer}>
 <TextInput
        style={styles.inputText}
        placeholder="Posez une question ou discutez avec le bot..."
        value={inputText}
+       multiline={true} 
        onChangeText={setInputText}
-     />
-
-     {isSending?<ActivityIndicator />:<TouchableOpacity  onPress={()=> {processinput(inputText)}}><Icon name="send-outline" size={30} color="#4F8EF7" /></TouchableOpacity>}
-     
-
-</View>
+    />
+     {action_View} 
+   
+</View>}
 </View>
 );
 }
@@ -187,6 +262,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 10,
     marginBottom: 5,
+    width:"100%"
     },
     inputText: {
     height: 40,
@@ -194,5 +270,24 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     paddingHorizontal: 10,
+    width:"80%"  
         },
+    recordContainer:{
+      display:'flex',
+      width:"100%",
+      padding:4,
+      flexDirection:'row'
+    },
+    limitList:{
+      padding:5,
+      margin:5
+    },
+    premuim:{
+      color:AppColor.statusbarColor,
+      fontSize:14
+    },
+    limitText:{
+      color:"red",
+         fontSize: 16
+    }     
     });

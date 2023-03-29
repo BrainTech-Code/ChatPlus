@@ -1,5 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply plugin: 'com.google.gms.google-services' 
 
 import com.android.build.OutputFile
 
@@ -137,6 +138,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file('braintech_app_keystore.jks')
+            storePassword '755287az'
+            keyAlias 'key0'
+            keyPassword '755287az'
+          }
     }
     buildTypes {
         debug {
@@ -145,7 +152,8 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+           // signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -193,7 +201,14 @@ dependencies {
     implementation("com.facebook.react:react-android")
      
      //add for videor frecoder
-     implementation project(':react-native-audio-recorder-player')
+    //
+     //implementation project(':react-native-audio-recorder-player')
+
+     //add for shared 
+    implementation project(':react-native-share') ;
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

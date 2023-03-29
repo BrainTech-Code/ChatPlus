@@ -18,6 +18,10 @@ import expo.modules.ReactNativeHostWrapper;
 
 import java.util.List;
 
+//shared imported 
+//import cl.json.RNSharePackage;
+//import cl.json.ShareApplication;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -35,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
         //  packages.add(new RNAudioRecorderPlayerPackage());
         // Packages that cannot be autolinked yet can be added manually here, for example:
         // packages.add(new MyReactNativePackage());
+       // packages.add(new RNSharePackage());
         return packages;
       }
 
@@ -77,8 +82,8 @@ public class MainApplication extends Application implements ReactApplication {
     ApplicationLifecycleDispatcher.onConfigurationChanged(this, newConfig);
   }
 
-  @Override    
+  /*@Override    
   public boolean canOverrideExistingModule(){        
     return true;    
-  }   
+  }   */
 }

@@ -1,0 +1,151 @@
+{
+  "project_info": {
+    "project_number": "330491475190",
+    "firebase_url": "https://rangoappoffice-default-rtdb.firebaseio.com",
+    "project_id": "rangoappoffice",
+    "storage_bucket": "rangoappoffice.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330491475190:android:c076c0097a4e0216ebe8d7",
+        "android_client_info": {
+          "package_name": "com.campus.rango"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330491475190-dlg5bivp41sio29hucuoajkumglbhlln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.campus.rango",
+            "certificate_hash": "821bbaa475844fb68b73121049052c4b682a0d10"
+          }
+        },
+        {
+          "client_id": "330491475190-m2m7uv2eo7bkrlabp5hj7l881c0cba8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.campus.rango",
+            "certificate_hash": "fa910787b39e6fadbf1c1067bca7bd9da4dff61f"
+          }
+        },
+        {
+          "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJnlhdQnLl6JkzyTbBQOYiRABozvzTQKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330491475190:android:45775552e4f254c2ebe8d7",
+        "android_client_info": {
+          "package_name": "com.chatplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJnlhdQnLl6JkzyTbBQOYiRABozvzTQKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330491475190:android:2b2079c82759d9deebe8d7",
+        "android_client_info": {
+          "package_name": "com.example.rangoadminapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJnlhdQnLl6JkzyTbBQOYiRABozvzTQKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330491475190:android:f7ae4a8a54d07261ebe8d7",
+        "android_client_info": {
+          "package_name": "com.example.rangoappoffice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330491475190-r56b9dlqkcuqchc3gjk2r5dl8uafg1fg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rangoappoffice",
+            "certificate_hash": "fa910787b39e6fadbf1c1067bca7bd9da4dff61f"
+          }
+        },
+        {
+          "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJnlhdQnLl6JkzyTbBQOYiRABozvzTQKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
