@@ -33,7 +33,7 @@ const MyDrawer=()=> {
                      initialRouteName="home"
                      screenOptions={{}}
                      drawerContent={props=><DrawerContent {...props} />} >
-      <Drawer.Screen name="home" component={Home} 
+    <Drawer.Screen name="home" component={Home} 
                  options={{drawerLabel:"Acceuil ",
                            drawerIcon:({})=><Icon name="home" size={28} color={AppColor.secondary} /> }}  />
       
