@@ -1,4 +1,4 @@
-package com.chatplus;
+package com.braintech.chatplus;
 
 //import com.dooboolab.audiorecorderplayer.RNAudioRecorderPlayerPackage ;
 import android.app.Application;

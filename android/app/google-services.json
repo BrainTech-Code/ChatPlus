@@ -8,28 +8,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:330491475190:android:c076c0097a4e0216ebe8d7",
+        "mobilesdk_app_id": "1:330491475190:android:871527fd1bd303fdebe8d7",
         "android_client_info": {
-          "package_name": "com.campus.rango"
+          "package_name": "com.braintech.chatplus"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "330491475190-dlg5bivp41sio29hucuoajkumglbhlln.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.campus.rango",
-            "certificate_hash": "821bbaa475844fb68b73121049052c4b682a0d10"
-          }
-        },
-        {
-          "client_id": "330491475190-m2m7uv2eo7bkrlabp5hj7l881c0cba8s.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.campus.rango",
-            "certificate_hash": "fa910787b39e6fadbf1c1067bca7bd9da4dff61f"
-          }
-        },
         {
           "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
           "client_type": 3
@@ -53,12 +37,28 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:330491475190:android:45775552e4f254c2ebe8d7",
+        "mobilesdk_app_id": "1:330491475190:android:c076c0097a4e0216ebe8d7",
         "android_client_info": {
-          "package_name": "com.chatplus"
+          "package_name": "com.campus.rango"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "330491475190-dlg5bivp41sio29hucuoajkumglbhlln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.campus.rango",
+            "certificate_hash": "821bbaa475844fb68b73121049052c4b682a0d10"
+          }
+        },
+        {
+          "client_id": "330491475190-m2m7uv2eo7bkrlabp5hj7l881c0cba8s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.campus.rango",
+            "certificate_hash": "fa910787b39e6fadbf1c1067bca7bd9da4dff61f"
+          }
+        },
         {
           "client_id": "330491475190-j7cfulabo57piruunukle7clbugefkm0.apps.googleusercontent.com",
           "client_type": 3

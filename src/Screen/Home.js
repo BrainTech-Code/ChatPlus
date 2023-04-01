@@ -53,6 +53,7 @@ const Home = () =>{
   const [limite, setLimite] = useState(null);
   const [file, setFile] = useState(null);
   const [isSending, setIsSending] = useState(null);
+  const [recording, setRecording] = React.useState();
 
   useEffect(() => {
     if (chatHistory.length>=AppConstant.Limite_2) {
@@ -62,7 +63,7 @@ const Home = () =>{
        //console.log("heelo",chatHistory.length);                      
       }, [chatHistory]) ;
 
-      
+
   const processinput = function(textin){
     setIsSending(true);
     let newChat={role: "user", content: textin};
@@ -111,14 +112,53 @@ const Home = () =>{
       console.log(error) ;
     } );
    }
+
   
+   const storeData = async () => {
+    try {
+      await AsyncStorage.setItem(
+        AppConstant.chatSize,
+        chatHistory.length,
+      );
+    } catch (error) {
+      // Error saving data
+    }
+  };
   const playSound=async()=>{
     
 }   
+const startRecording=async()=> {
+  console.log("recording statr");
+        try {        
+          await Audio.requestPermissionsAsync();
+
+          await Audio.setAudioModeAsync({
+            allowsRecordingIOS: true,
+            playsInSilentModeIOS: true,
+          });
+           
+          const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY);
+          setRecording(recording);
+          
+        } catch (err) {
+          console.log(err);
+        }
+      }
+
+      const stopRecording=async()=>{
+       
+        await recording.stopAndUnloadAsync();
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+        });
+        const uri = recording.getURI();
+        setaudioFile(uri)
+        console.log("stoped",uri);
+     }
 
   let action_View ;
        if (inputText==="" || inputText==null) {
-             action_View=<TouchableOpacity onPressOut={()=>{if(recording){stopRecording()} }} onPressIn={()=>{startRecording() }}><Icon name="mic-circle" size={30} color="#4F8EF7" /></TouchableOpacity>;
+             action_View=<TouchableOpacity onPressOut={()=>{if(recording){/*stopRecording()*/} }} onPressIn={()=>{/*startRecording() */}}><Icon name="mic-circle" size={30} color="#4F8EF7" /></TouchableOpacity>;
          }else {
                action_View=isSending?<ActivityIndicator />:<TouchableOpacity  onPress={()=> {if(inputText!==" "){processinput(inputText)} }}><Icon name="send-outline" size={30} color="#4F8EF7" /></TouchableOpacity>;
           }
