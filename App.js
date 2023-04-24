@@ -47,8 +47,6 @@ const MyDrawer=()=> {
     <Drawer.Screen name="user" component={ProfilScreen} 
                  options={{drawerLabel:'', }}  />
       
-
-      
     </Drawer.Navigator>
     
    

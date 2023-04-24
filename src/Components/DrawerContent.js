@@ -44,9 +44,10 @@ const DrawerContent = (props)=>{
  ;
 }
      return(
+
       <View style={{flex: 1}}>      
         <DrawerContentScrollView {...props} >
-                <ImageBackground source={require("../assets/bot.jpg")} style={{width:"100%",height:200}} >
+                <ImageBackground source={require("../assets/botmin.jpg")} style={{width:"100%",height:200}} >
 
                 </ImageBackground>
                 <DrawerItemList {...props} />
@@ -81,8 +82,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'flex-start',
     alignItems:'center',
-   
-   
   },
   Footer2:{
     marginTop:4
