@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View,LogBox, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Animatable from 'react-native-animatable';
 import AppColor, { AppImage } from '../constants/colors';
 import { flags } from '../constants/constants';
 
-const ActionBar = ({action, indicator,mainaction}) => {
+
+LogBox.ignoreLogs(['new NativeEventEmitter']); // Ignore log notification by message
+LogBox.ignoreAllLogs()
+const ActionBar = ({action, indicator}) => {
   let recordStyl={backgroundColor:AppColor.primary};
 
   const handleEdit = () => {
@@ -36,7 +39,7 @@ const ActionBar = ({action, indicator,mainaction}) => {
           <Icon name="pencil" size={30} color="#fff" style={styles.icon} />
         </Animatable.View>
       </TouchableOpacity>
-      {(indicator==0 || indicator==flags.end_send_ind)?
+      {(indicator==0 || indicator==flags.end_send_ind || indicator==flags.end_record)?
       <TouchableOpacity onPress={handleRecord}>
         <Animatable.View animation="bounceIn">
           <Icon name="mic" size={30} color="#fff" style={[styles.icon,recordStyl]} />
@@ -54,7 +57,7 @@ const ActionBar = ({action, indicator,mainaction}) => {
       </TouchableOpacity>:null
       }
       {
-      (indicator==2 || indicator==flags.start_send_ind)?
+      (indicator==2 || indicator==flags.start_send_ind || indicator==flags.start_record)?
       <TouchableOpacity onPress={handleAnime}>
         <Animatable.View animation="bounceIn"> 
           <Image

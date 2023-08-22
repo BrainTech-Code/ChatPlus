@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "761896199927",
+    "project_id": "chatplus-9e84a",
+    "storage_bucket": "chatplus-9e84a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761896199927:android:bd09c7eaf8528db4fc55f2",
+        "android_client_info": {
+          "package_name": "com.braintech.chatplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761896199927-27gp7ujsm8311em0tj3ut1dofs2s4tir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOMPlBDnc7vV0e3z7ml5WSG3jfcDNifV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761896199927-27gp7ujsm8311em0tj3ut1dofs2s4tir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

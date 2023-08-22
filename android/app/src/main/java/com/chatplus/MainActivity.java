@@ -1,4 +1,5 @@
-package com.chatplus;
+package com.chatplus ; //com.braintech.chatplus ;
+ 
 
 import android.os.Build;
 import android.os.Bundle;

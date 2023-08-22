@@ -22,6 +22,7 @@ export const system='Tu es un assistant Intelligent amical.'+
 export const flags={
       hide_:0,
       start_record:4 ,
+      end_record:8,
       star_send:2,
       start_send_ind:6,
       end_send_ind:7,

@@ -10,17 +10,20 @@ import { useState } from 'react';
 import { Alert } from 'react-native';
 import Share from 'react-native-share';
 import AppConstant, { flags } from '../constants/constants';
-
+import inAppMessaging from '@react-native-firebase/in-app-messaging';
 import { system } from "../constants/constants";
 import ActionBar from "../Components/ActionBar";
-
+import Tts from 'react-native-tts';
+import Voice,
+   {SpeechRecognizedEvent,
+  SpeechResultsEvent,
+  SpeechErrorEvent,} from '@react-native-voice/voice';
 
 const OPENAI_API_KEY="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" //process.env.REACT_APP_OPENAI_API_KEY;
 const WISPER_END_POND=process.env.REACT_APP_WISPER_END_POND;
 const GPT_END_POND="https://api.openai.com/v1/chat/completions";
 
 const ResponseBLoc=({item}) => {
-  //shared item
 const options ={
   message:item.content,
   title:"partage par chatPlus",
@@ -66,9 +69,18 @@ const Home = () =>{
       storeData() ;
       setLimite(true);
        }   
-       //console.log("heelo",chatHistory.length);                      
+        speak(inputText);     
       }, [chatHistory]) ;
 
+  useEffect(() => {
+     Voice.onSpeechEnd = speechEndHandler;
+     Voice.onSpeechEnd = speechEndHandler;
+     Voice.onSpeechResults = speechResultsHandler;
+     return () => {
+          Voice.destroy().then(Voice.removeAllListeners);
+        };
+  }, [])
+      
 
   const processinput = function(textin){
     setactionSwitchIndicator(flags.start_send_ind)
@@ -131,7 +143,10 @@ const Home = () =>{
     }
   };
   
+  const speak =(floor)=>{
   
+  }
+ 
   const handleAction=(id)=>{
     switch (id) {
       case flags.hide_:
@@ -146,7 +161,7 @@ const Home = () =>{
         break;
       case flags.start_record:
         //start recording
-        console.log('start record')
+        startRecording() ;
 
 
         break
@@ -163,10 +178,26 @@ const Home = () =>{
     }
     
   }
-    const mainActionHandler=(flag)=>{
-      console.log("main action",flag)
+  
+  const startRecording = async ()=>{    
+           try {          
+              setactionSwitchIndicator(flags.start_record)
+               await Voice.start('fr-FR')
+           } catch (error) {
+              console.log(error) ;
+           }
 
     }
+
+    const speechEndHandler =(e)=>{
+          setactionSwitchIndicator(flags.end_record);    
+          console.log("speech end",e)        
+    }
+  const speechResultsHandler = (e) => {
+        const text = e.value[0];
+        setInputText(text);
+        sethideEditBar(null)
+      };
   return(
     <View style={styles.container}>
          <StatusBar
@@ -185,21 +216,18 @@ const Home = () =>{
                style={[styles.inputText,{minHeight:100,flex:1,fontSize:16}]}
                placeholder="Posez une question ou discutez avec le bot..."
                value={inputText}
-               multiline={true}     
-                 
+               multiline={true}                     
                onChangeText={(text)=>{
-                   setInputText(text)
-                   
+                   setInputText(text)                  
                    if(text!=null && text!=""){
                        setactionSwitchIndicator(1)                    
-                   }else{
-                    
+                   }else{                   
                     setactionSwitchIndicator(0)
                    }
                }} />                
             </View>}
         
-          {<ActionBar action ={handleAction}  indicator={actionSwitchIndicator} mainaction={mainActionHandler} /> }
+          {<ActionBar action ={handleAction}  indicator={actionSwitchIndicator}/> }
         
 </View>
     );
