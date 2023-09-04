@@ -13,6 +13,7 @@ import StartScreen from './src/Screen/StartScreen';
 import ProfilScreen from './src/Screen/ProfilScreen';
 
 const shareOptions = {
+
   title: 'Share via',
   message: 'some message',
   url: 'some share url',
@@ -62,7 +63,7 @@ const MyStack=()=>{
       <Stack.Screen name="drawer" component={MyDrawer}/>
     </Stack.Navigator>
   );
-}
+}   
 const App=()=>{
 
  // console.log("secret",process.env.REACT_APP_OPENAI_API_KEY) ;
